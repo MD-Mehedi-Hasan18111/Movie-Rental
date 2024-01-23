@@ -2,4 +2,6 @@ import { createContext } from "react";
 
 const CinemaCartContext = createContext();
 
-export { CinemaCartContext };
+const ThemeContext = createContext();
+
+export { CinemaCartContext, ThemeContext };

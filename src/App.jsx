@@ -2,19 +2,22 @@ import { useState } from "react";
 import Footer from "./components/Footer";
 import Header from "./components/Header";
 import Main from "./components/Main/Main";
-import { CinemaCartContext } from "./context/CinemaContext";
+import { CinemaCartContext, ThemeContext } from "./context/CinemaContext";
 
 const App = () => {
   const [cart, setCart] = useState([]);
+  const [isDark, setIsDark] = useState(true);
 
   return (
-    <CinemaCartContext.Provider value={{ cart, setCart }}>
-      <div className="container">
-        <Header />
-        <Main />
-        <Footer />
-      </div>
-    </CinemaCartContext.Provider>
+    <ThemeContext.Provider value={{ isDark, setIsDark }}>
+      <CinemaCartContext.Provider value={{ cart, setCart }}>
+        <div className={`w-full h-full ${isDark ? "dark" : ""} container`}>
+          <Header />
+          <Main />
+          <Footer />
+        </div>
+      </CinemaCartContext.Provider>
+    </ThemeContext.Provider>
   );
 };
 
