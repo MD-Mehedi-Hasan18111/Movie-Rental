@@ -4,13 +4,20 @@ import checkout from "../../../assets/icons/checkout.svg";
 import { CinemaCartContext } from "../../../context/CinemaContext";
 import { getImgUrl } from "../../../utils/cine-utility";
 import Delete from "../../../assets/delete.svg";
+import { toast } from "react-toastify";
 
 const CartDetails = ({ onClose }) => {
-  const { cart, setCart } = useContext(CinemaCartContext);
+  const { state, dispatch } = useContext(CinemaCartContext);
 
-  const handleRemoveMovie = (e, movieId) => {
+  const handleRemoveMovie = (e, movie) => {
     e.preventDefault();
-    setCart(cart?.filter((item) => item?.id !== movieId));
+    dispatch({
+      type: "REMOVE_FROM_CART",
+      payload: movie,
+    });
+    toast.success(`The movie ${movie?.title} removed from cart successfully!`, {
+      position: "bottom-right",
+    });
   };
 
   return (
@@ -21,8 +28,8 @@ const CartDetails = ({ onClose }) => {
             Your Carts
           </h2>
           <div className="space-y-8 lg:space-y-12 max-h-[450px] overflow-auto mb-10 lg:mb-14">
-            {cart?.length > 0 ? (
-              cart?.map((movie) => {
+            {state?.cart?.length > 0 ? (
+              state?.cart?.map((movie) => {
                 return (
                   <div
                     key={movie?.id}
@@ -48,7 +55,7 @@ const CartDetails = ({ onClose }) => {
                     </div>
                     <div className="flex justify-between gap-4 items-center">
                       <button
-                        onClick={(e) => handleRemoveMovie(e, movie?.id)}
+                        onClick={(e) => handleRemoveMovie(e, movie)}
                         className="bg-[#D42967] rounded-md p-2 md:px-4 inline-flex items-center space-x-2 text-white"
                       >
                         <img className="w-5 h-5" src={Delete} alt="Remove" />

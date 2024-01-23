@@ -10,7 +10,7 @@ import { CinemaCartContext, ThemeContext } from "../context/CinemaContext";
 const Header = () => {
   const [showCart, setShowCart] = useState(false);
 
-  const { cart } = useContext(CinemaCartContext);
+  const { state } = useContext(CinemaCartContext);
   const { isDark, setIsDark } = useContext(ThemeContext);
 
   return (
@@ -49,7 +49,7 @@ const Header = () => {
                 <img src={shoppingCart} width="24" height="24" alt="" />
               </a>
               <span className="rounded-full absolute top-[-12px] left-[28px] bg-[#12CF6F] text-white text-center p-[2px] w-[30px] h-[30px]">
-                {cart.length}
+                {state?.cart?.length}
               </span>
             </li>
           </ul>

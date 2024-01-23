@@ -4,21 +4,32 @@ import { getImgUrl } from "../../../utils/cine-utility";
 import Rating from "./Rating";
 import CinemaDetailsModal from "./CinemaDetailsModal";
 import { CinemaCartContext } from "../../../context/CinemaContext";
+import { toast } from "react-toastify";
 
 const CinemaCard = ({ movie }) => {
   const [showModal, setShowModal] = useState(false);
 
-  const { cart, setCart } = useContext(CinemaCartContext);
+  const { state, dispatch } = useContext(CinemaCartContext);
 
   const handleAddToCartMovie = (e, movie) => {
     e.stopPropagation();
 
-    const foundMovie = cart?.find((item) => item?.id === movie?.id);
+    const foundMovie = state?.cart?.find((item) => item?.id === movie?.id);
 
     if (!foundMovie) {
-      setCart([...cart, movie]);
+      dispatch({
+        type: "ADD_TO_CART",
+        payload: {
+          ...movie,
+        },
+      });
+      toast.success(`The movie ${movie?.title} added to cart successfully!`, {
+        position: "bottom-right",
+      });
     } else {
-      alert(`The movie ${movie?.title} has been already added to cart!`);
+      toast.error(`The movie ${movie?.title} has been already added to cart!`, {
+        position: "bottom-right",
+      });
     }
   };
 
