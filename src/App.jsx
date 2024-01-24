@@ -3,9 +3,9 @@ import Footer from "./components/Footer";
 import Header from "./components/Header";
 import Main from "./components/Main/Main";
 import { CinemaCartContext, ThemeContext } from "./context/CinemaContext";
-import { cartReducer, initialState } from "./reducers/cartReducer";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import { cartReducer, initialState } from "./reducers/CartReducer";
 
 const App = () => {
   const [state, dispatch] = useReducer(cartReducer, initialState);
